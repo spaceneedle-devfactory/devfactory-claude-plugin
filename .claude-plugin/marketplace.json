@@ -1,0 +1,17 @@
+{
+  "name": "devfactory",
+  "owner": {
+    "name": "Dev Factory"
+  },
+  "description": "Official plugin to operate the Dev Factory platform via Claude Code.",
+  "plugins": [
+    {
+      "name": "devfactory",
+      "source": "./",
+      "displayName": "Dev Factory",
+      "description": "Connect, build, use the data plane, AI, observability and publish apps on the Dev Factory — no infrastructure knowledge required.",
+      "category": "productivity",
+      "keywords": ["devfactory", "dev-factory", "baas"]
+    }
+  ]
+}

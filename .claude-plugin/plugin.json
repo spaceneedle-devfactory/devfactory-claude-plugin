@@ -1,0 +1,12 @@
+{
+  "name": "devfactory",
+  "displayName": "Dev Factory",
+  "version": "0.1.1",
+  "description": "Operate the Dev Factory without technical knowledge: connect to a project, create applications, use the data plane (documents, relational, tables, files, secrets, queue, messages), AI (Bedrock), observability and publish releases — Claude codes and executes; you follow and approve through the Console.",
+  "author": {
+    "name": "Dev Factory",
+    "url": "https://github.com/spaceneedle-devfactory"
+  },
+  "license": "MIT",
+  "keywords": ["devfactory", "dev-factory", "baas", "data-plane", "bedrock"]
+}
