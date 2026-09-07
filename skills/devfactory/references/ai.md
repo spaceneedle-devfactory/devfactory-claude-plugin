@@ -12,6 +12,13 @@ Every call returns `403 ai_disabled` until the **admin** enables AI for the proj
 "Enable AI" request from admin-requests.md. `403 model_not_allowed` = the model is not on the
 project's allow-list (also an admin request).
 
+**401 vs 403 — do not confuse them.** On an internet-facing host, the AI gateway also accepts
+`x-project-key` from the public internet, same as the data plane. A `401 "Sign in to use the
+published API."` means the request carries **no/invalid project key** — a local `.env`/config
+problem, [DEV] fixable (check `DEVFACTORY_PROJECT_KEY`, see troubleshooting.md). A `403
+ai_disabled` means the key is fine but **AI itself is off for the project** — [ADMIN] gate. Never
+draft an "Enable AI" request off a 401; fix the key first and re-run.
+
 ## Calls
 
 **Converse (chat — the default path):**

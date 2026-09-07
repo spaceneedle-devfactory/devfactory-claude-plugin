@@ -27,9 +27,11 @@ takes you from the kit link to a live app with data, AI and telemetry.
 
 The short version:
 
-1. Get from your admin: the project's **`connection.md` link** and a **project key**.
-2. In Claude Code, inside a working folder: `/devfactory:connect <link>` — paste the key when asked
-   (it lives only in the local `.env`, outside git).
+1. Get the project's **`connection.md` link** (or a downloaded kit file), and mint a **project
+   key** yourself in **Console → Connect → Project API keys**.
+2. In Claude Code, inside a working folder: `/devfactory:connect <link>` — paste the key when
+   asked (it lives only in the local `.env`, outside git); Claude fetches the kit **with the key**
+   (`x-project-key`), since the kit endpoint on a published host is not public either.
 3. Done: ask in natural language ("store these records", "build a screen to register
    occurrences", "summarize these documents with AI") or use the commands below.
 

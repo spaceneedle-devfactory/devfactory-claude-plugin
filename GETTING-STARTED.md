@@ -21,14 +21,16 @@ Legend: 🧑 = you · 👷 = admin (you send the request, they deliver) · 🤖 
    then install `devfactory` from the plugins tab.
 4. ✅ Typing `/devfactory:` in Claude Code autocompletes the commands.
 
-## 1. Get your kit
+## 1. Get your kit and a key
 
-You need two things from the admin (Claude drafts the request if you don't have them yet —
-just run `/devfactory:new-project` for a brand-new project):
+You need two things (Claude drafts the "New project" request if you don't have a project yet —
+just run `/devfactory:new-project`):
 
 1. 👷 The **connection kit link** (ends in `connection.md`) — lists your pre-provisioned
-   resources, repositories and URLs.
-2. 👷 A **project key** (`pk_...`) — delivered once, through a secure channel.
+   resources, repositories and URLs. You (or the admin) can also download it as a file.
+2. 🧑 A **project key** (`pk_...`) — mint it yourself in **Console → Connect → Project API
+   keys**. On a published host, the kit itself needs this key too (no Console session on your
+   machine, so there is no other way in).
 
 ## 2. Connect Claude to the project
 
@@ -36,11 +38,12 @@ just run `/devfactory:new-project` for a brand-new project):
 
    `/devfactory:connect <paste the kit link>`
 
-2. 🤖 Claude downloads the kit, writes the local config, summarizes what the kit gives you
-   (services, repositories) and asks for the project key.
-3. 🧑 Paste the `pk_...` you received from the admin.
-4. 🤖 Claude stores it safely (local `.env`, out of git) and runs a read-only health check on
-   every service.
+2. 🤖 Claude asks for the project key first (unless `.env` already has one).
+3. 🧑 Paste the `pk_...` from step 1.
+4. 🤖 Claude stores it safely (local `.env`, out of git, never echoed), fetches the kit **with
+   the key** (`x-project-key`) — a `401` there means no/wrong key or a key from another project —
+   writes the local config, summarizes what the kit gives you (services, repositories), and runs
+   a read-only health check on every service.
 5. ✅ Claude shows a table with the services (documents, relational, tables, files, secrets,
    queue, messages, ai) mostly **OK**. If `ai` shows disabled, that becomes an admin request in
    step 5 — keep going.

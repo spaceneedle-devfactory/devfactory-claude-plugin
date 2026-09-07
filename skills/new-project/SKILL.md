@@ -8,6 +8,9 @@ argument-hint: "[project-name]"
 
 Creating projects is admin-only, done in the Console at `{apiBaseUrl minus /apis}/console/`
 (projects screen). Your role: shape the request, then connect and validate when it is delivered.
+The actual call the admin makes there is `POST` with `{"id": "...", "name": "...", "description": "..."}`
+(`id` is the kebab-case slug) — informational, so you know what the request maps to; you never
+call it yourself.
 
 1. **Name it with the user**: a short kebab-case slug (e.g. `fleet-management`). Explain it
    becomes the project's permanent id (URLs, repos).
@@ -20,4 +23,7 @@ Creating projects is admin-only, done in the Console at `{apiBaseUrl minus /apis
 4. Explain what they got, one line per service (documents = record store, relational =
    tables/reports, files = file storage, tables = fast key lookups, secrets = vault, queue =
    task queue, messages = e-mail, ai = artificial intelligence) and ask what they want to build
-   first — then continue with `/devfactory:new-app` or `/devfactory:data`.
+   first — then continue with `/devfactory:new-app` or `/devfactory:data`. A fresh project also
+   comes with two shared repos already created in `spaceneedle-devfactory-projects`:
+   `{project}-iac` and `{project}-docs` — per-app repos (`{project}-{slug}`) are created by
+   `/devfactory:new-app`.

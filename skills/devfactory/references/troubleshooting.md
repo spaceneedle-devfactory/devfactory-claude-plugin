@@ -16,7 +16,8 @@ Factory team (via the admin).
 | 401 `invalid_key` | wrong/revoked key | [ADMIN] request a new project key; update `.env` |
 | 403 `project_mismatch` | path points to a project ≠ the key's | [DEV] regenerate `devfactory-df.config.json` from the right project's kit |
 | 403 `environment_not_allowed` / `service_not_allowed` | key restricted by env/service | [ADMIN] request a key without the restriction (or with the right scope) |
-| 403 `ai_disabled` | AI not enabled on the project | [ADMIN] "Enable AI" request |
+| 401 `"Sign in to use the published API."` (AI gateway, published host) | no/invalid `x-project-key` on an internet-facing host — distinct from `ai_disabled` | [DEV] check `.env`/`DEVFACTORY_PROJECT_KEY`, same as any other 401 above — do NOT draft an "Enable AI" request for this |
+| 403 `ai_disabled` | key is valid but AI not enabled on the project | [ADMIN] "Enable AI" request |
 | 403 `model_not_allowed` | model outside the allow-list | [DEV] switch models, or [ADMIN] request the model |
 | 404 on a route that "should exist" | grammar mistake | [DEV] check: service segment present? verb prefixed with `:`? stray `:` or `/` in the id? |
 | 400 with a SQL message | T-SQL error | [DEV] read `detail` (the database message); remember: no `IF NOT EXISTS`, use `IF OBJECT_ID(...)` |

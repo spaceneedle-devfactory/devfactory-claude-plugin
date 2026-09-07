@@ -107,7 +107,10 @@ if (process.argv.includes('--json')) {
   const pad = (s, n) => String(s).padEnd(n);
   for (const [name, r] of Object.entries(results)) {
     const mark = r.ok ? 'OK ' : 'ERR';
-    const extra = r.ok ? '' : ` ${r.status || ''} ${r.error || ''}`.trimEnd();
+    let extra = r.ok ? '' : ` ${r.status || ''} ${r.error || ''}`.trimEnd();
+    if (!r.ok && r.status === 401 && name.startsWith('ai')) {
+      extra += ' — missing/invalid project key on the published host (x-project-key)';
+    }
     console.log(`  ${mark}  ${pad(name, 18)}${extra}`);
   }
   console.log('\nNotes: ERR on "ai (converse)" with ai_disabled = enable AI on the project (Console/AI Playground).');

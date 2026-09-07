@@ -25,11 +25,20 @@ Applications), admin-only — draft one "New application" request per app
 templates: `frontend-vanilla`, `frontend-vuejs-cdn`, `frontend-vuejs`, `frontend-react`,
 `frontend-react-cdn`, `backend-aspnet`, `backend-nodejs`, `backend-python`, `service-*`,
 `worker-*` (default **backend-nodejs**/**worker-nodejs** for backend/worker, **frontend-react**
-for frontend, unless the user wants a different stack). The admin creates the repo (on GitHub,
-org `spaceneedle-devfactory-projects`) + the ACR repository + CI wiring, and returns the
-**repository URL**.
+for frontend, unless the user wants a different stack). The actual call the admin makes on that
+screen is `POST` with `{"name": "...", "slug": "...", "template_id": "backend-nodejs"}` (the
+`template_id` is one of the stacks above) — this is informational, so you know what the request
+maps to; you never call it yourself. The admin creates the repo (on GitHub, org
+`spaceneedle-devfactory-projects`) + the ACR repository + CI wiring, and returns the
+**repository URL**. The delivered repo already ships `.github/workflows/build.yml`: bumping
+`version.json` and pushing a tag is what makes the platform build the image into ACR and list it
+on the Console Releases screen — see `/devfactory:publish`.
 
 ## 3. You take over the repo
+
+App repos live in the GitHub org `spaceneedle-devfactory-projects`, named `{project}-{slug}`
+(e.g. `jornada-api`); each project also gets a shared `{project}-iac` and `{project}-docs` repo
+(infra-as-code and docs/releases — read-only reference, not per-app).
 
 1. `git clone`; read the local `docs/SCAFFOLDING.md`.
 2. React frontend → fix the nginx port NOW (`listen 8080` + `EXPOSE 8080`).

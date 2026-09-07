@@ -46,11 +46,12 @@ Exception: **AI** is not under the data-plane grammar above — it is
 ## Session bootstrap
 
 1. Look for `devfactory-df.config.json` in the working directory. Missing → run the `/devfactory:connect`
-   flow (the kit link `{apiBaseUrl}/projects/{id}/connection.md` is public — the admin sends it;
-   no token needed to read it).
+   flow (the kit link `{apiBaseUrl}/projects/{id}/connection.md` requires the **project key** on
+   an internet-facing host — `x-project-key: pk_...` — since there is no Console session on the
+   dev's machine; a downloaded kit file also works).
 2. Project key: `DEVFACTORY_PROJECT_KEY` in `.env` (**ensure `.env` is gitignored BEFORE writing it**).
-   Missing → the user asks the **admin** for a project key (the admin issues it in the Console
-   and hands it over once); paste it here and store it in `.env` only.
+   Missing → the user mints one in **Console → Connect → Project API keys**; paste it here and
+   store it in `.env` only.
 3. Validate with the read-only smoke: `node "${CLAUDE_PLUGIN_ROOT}/scripts/devfactory-smoke.mjs"`.
 
 ## Plugin tooling (use it — do not hand-craft curl)
