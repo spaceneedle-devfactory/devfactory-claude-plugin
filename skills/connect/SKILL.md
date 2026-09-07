@@ -44,6 +44,21 @@ developer's machine has is the **project key**, so the key comes first, before t
    rename or drop fields. Also save the whole kit as a local `connection.md` (offline reference).
    The kit's resource and repository lists are the **contract of what the dev can use** —
    summarize them for the user.
+5a. **Write the non-secret data-plane env, next to the key:** the generated app templates'
+   own `tests/*.integration.test.js` read `DEVFACTORY_DATA_PLANE_URL`, `DEVFACTORY_HOST_HEADER`
+   and `DEVFACTORY_PROJECT_KEY` directly (see each template's `src/dataplane.js`) and **skip
+   themselves** when any of these are missing — leaving `npm test` green but silently never
+   touching the real data plane. From the config bundle just written, add (or update, if already
+   present) these lines in `.env`:
+   - `DEVFACTORY_DATA_PLANE_URL={dataPlaneBaseUrl}`
+   - `DEVFACTORY_HOST_HEADER={host portion of apiBaseUrl, no scheme/path}`
+   - `DEVFACTORY_PROJECT_ID={projectId}`
+   - `DEVFACTORY_ENV={environmentId}`
+
+   Do this idempotently: for each `KEY=value` above, if a line already starts with `KEY=` in
+   `.env`, replace that line in place; otherwise append a new line. Never touch or reorder any
+   other line (in particular, leave `DEVFACTORY_PROJECT_KEY` and any unrelated var exactly where
+   they are), and never print the resulting `.env` or the key line.
 6. **Validate:** `node "${CLAUDE_PLUGIN_ROOT}/scripts/devfactory-smoke.mjs"`. Interpret with
    `references/troubleshooting.md` (e.g. `ai_disabled` = an admin request, not your bug; a bare
    `401` on a published host = missing/invalid project key, see step 4).
